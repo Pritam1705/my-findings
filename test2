@@ -1,10 +1,10 @@
 from flask import Flask, request
 import logging
 import json
+import os
+import subprocess
 
 app = Flask(__name__)
-
-# Enable Flask Debug Mode
 app.debug = True
 
 # Logging setup
@@ -12,32 +12,43 @@ logging.basicConfig(level=logging.INFO)
 
 @app.route('/')
 def index():
-    return "✅ Flask Webhook Service is running!"
+    return " Flask Webhook Service is running!"
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
     try:
-        # Get JSON payload from the webhook
         payload = request.get_json()
-        
-        logging.info("🚀 Webhook Received")
-        
-        # Pretty print the payload to make it readable in the logs
+        logging.info(" Webhook Received")
+
+        # Pretty print payload
         pretty_payload = json.dumps(payload, indent=4)
-        logging.info("📑 Webhook Data: \n" + pretty_payload)
-        
-        # Check if the payload has commits and log them
+        logging.info(" Webhook Data:\n" + pretty_payload)
+
+        if payload and 'repository' in payload:
+            repo_name = payload['repository']['name']
+            clone_url = payload['repository']['clone_url']
+            logging.info(f" Repo: {repo_name}")
+            logging.info(f" Clone URL: {clone_url}")
+
+            # Clone or pull the repo
+            if os.path.exists(repo_name):
+                logging.info(f" Repo '{repo_name}' already exists. Pulling latest changes...")
+                subprocess.run(["git", "-C", repo_name, "pull"], check=True)
+            else:
+                logging.info(f" Cloning repo '{repo_name}'...")
+                subprocess.run(["git", "clone", clone_url], check=True)
+
         if payload and 'commits' in payload:
-            logging.info(f"🔨 Commits Found: {len(payload['commits'])}")
+            logging.info(f" Commits Found: {len(payload['commits'])}")
             for commit in payload['commits']:
-                logging.info(f"🔖 Commit ID: {commit['id']}")
-                logging.info(f"📝 Message: {commit['message']}")
-                logging.info(f"👤 Author: {commit['author']['name']}")
-                logging.info(f"🔗 URL: {commit['url']}")
+                logging.info(f" Commit ID: {commit['id']}")
+                logging.info(f" Message: {commit['message']}")
+                logging.info(f" Author: {commit['author']['name']}")
+                logging.info(f" URL: {commit['url']}")
 
         return "OK", 200
     except Exception as e:
-        logging.error(f"❌ Error: {e}")
+        logging.error(f" Error: {e}")
         return f"Error: {e}", 500
 
 if __name__ == '__main__':
