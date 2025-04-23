@@ -1,0 +1,44 @@
+from flask import Flask, request
+import logging
+import json
+
+app = Flask(__name__)
+
+# Enable Flask Debug Mode
+app.debug = True
+
+# Logging setup
+logging.basicConfig(level=logging.INFO)
+
+@app.route('/')
+def index():
+    return "✅ Flask Webhook Service is running!"
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    try:
+        # Get JSON payload from the webhook
+        payload = request.get_json()
+        
+        logging.info("🚀 Webhook Received")
+        
+        # Pretty print the payload to make it readable in the logs
+        pretty_payload = json.dumps(payload, indent=4)
+        logging.info("📑 Webhook Data: \n" + pretty_payload)
+        
+        # Check if the payload has commits and log them
+        if payload and 'commits' in payload:
+            logging.info(f"🔨 Commits Found: {len(payload['commits'])}")
+            for commit in payload['commits']:
+                logging.info(f"🔖 Commit ID: {commit['id']}")
+                logging.info(f"📝 Message: {commit['message']}")
+                logging.info(f"👤 Author: {commit['author']['name']}")
+                logging.info(f"🔗 URL: {commit['url']}")
+
+        return "OK", 200
+    except Exception as e:
+        logging.error(f"❌ Error: {e}")
+        return f"Error: {e}", 500
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
