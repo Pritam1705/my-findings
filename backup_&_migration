@@ -1,0 +1,12 @@
+# 📦 PostgreSQL Dump and Restore Guide
+
+## 🔄 Dump the PostgreSQL Database
+
+Use the following command to export (dump) a PostgreSQL database:
+
+```bash
+pg_dump -h <hostname> -U <username> -W <dbname> > filename-dd-mm-yyyy.sql
+
+docker exec -i db mysqldump -uroot -p'password' buildpiper > BP-dump-11apr.sql
+
+https://www.singlestore.com/blog/mysql-error-too-many-connections/
