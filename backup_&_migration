@@ -10,3 +10,14 @@ pg_dump -h <hostname> -U <username> -W <dbname> > filename-dd-mm-yyyy.sql
 docker exec -i db mysqldump -uroot -p'password' buildpiper > BP-dump-11apr.sql
 
 https://www.singlestore.com/blog/mysql-error-too-many-connections/
+
+Dump-restore for MySQL
+
+scp file-name ubuntu@10.51.7.165:/home/ubuntu/path/to/destination
+
+tar -xzvf <path/file name>
+
+kubectl cp <file> -n mysql-dev mysql-0:/tmp/<file name>
+
+
+kubectl exec -it -n mysql-dev mysql-0 -- bash -c "mysql -uroot -p < /tmp/all_databases_dev-new_backup.sql"
