@@ -1,4 +1,5 @@
 cat /etc/nginx/sites-enabled/coroot 
+https://medium.com/@bmcrathnayaka/manually-generating-free-ssl-certificates-with-lets-encrypt-certbot-02d9240b85a3  (certificate generation doc)
 
 
 server {
