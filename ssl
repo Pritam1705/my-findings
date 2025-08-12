@@ -1,5 +1,7 @@
 cat /etc/nginx/sites-enabled/coroot 
 https://medium.com/@bmcrathnayaka/manually-generating-free-ssl-certificates-with-lets-encrypt-certbot-02d9240b85a3  (certificate generation doc)
+sudo certbot certonly --manual --preferred-challenges=dns --rsa-key-size 4096 -d "nimbuspost.com" -d "*.nimbuspost.com"
+
 
 
 server {
