@@ -1,5 +1,1 @@
-wwwwe# webhooks12
-wew
-aw
-ds
-e
+https://nareshit.in/python-training/
