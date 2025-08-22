@@ -1,0 +1,104 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/proxy-body-size":"5000m","nginx.ingress.kubernetes.io/proxy-connect-timeout":"300","nginx.ingress.kubernetes.io/proxy-read-timeout":"300","nginx.ingress.kubernetes.io/proxy-send-timeout":"300","nginx.org/client-max-body-size":"5000m"},"name":"apnamart-backend","namespace":"consumer-dev"},"spec":{"ingressClassName":"public","rules":[{"host":"tezapi-cd.apnamart.in","http":{"paths":[{"backend":{"service":{"name":"tez-api-dev-dev","port":{"number":8000}}},"path":"/","pathType":"Prefix"}]}},{"host":"smapi-cd.apnamart.in","http":{"paths":[{"backend":{"service":{"name":"samaan-api-dev-dev","port":{"number":8000}}},"path":"/","pathType":"Prefix"}]}},{"host":"arrow-cd.apnamart.in","http":{"paths":[{"backend":{"service":{"name":"samaan-api-dev-dev","port":{"number":8000}}},"path":"/","pathType":"Prefix"}]}},{"host":"offerapi-cd.apnamart.in","http":{"paths":[{"backend":{"service":{"name":"offer-api-dev-consumer-dev","port":{"number":8000}}},"path":"/","pathType":"Prefix"}]}},{"host":"searchapi-cd.apnamart.in","http":{"paths":[{"backend":{"service":{"name":"search-api-dev-dev","port":{"number":3000}}},"path":"/","pathType":"Prefix"}]}},{"host":"cpapi-cd.apnamart.in","http":{"paths":[{"backend":{"service":{"name":"hrms-api-consumer-dev","port":{"number":3000}}},"path":"/","pathType":"Prefix"}]}},{"host":"dhaara-cd.apnamart.in","http":{"paths":[{"backend":{"service":{"name":"dhaara-api-consumer-dev","port":{"number":8000}}},"path":"/","pathType":"Prefix"}]}}],"tls":[{"hosts":["tezapi-cd.apnamart.in","offerapi-cd.apnamart.in","smapi-cd.apnamart.in","arrow-cd.apnamart.in","searchapi-cd.apnamart.in","cpapi-cd.apnamart.in","dhaara-cd.apnamart.in"],"secretName":"apnamart-be-wild"}]}}
+    nginx.ingress.kubernetes.io/proxy-body-size: 5000m
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.org/client-max-body-size: 5000m
+  creationTimestamp: "2025-07-28T07:41:44Z"
+  generation: 3
+  name: apnamart-backend
+  namespace: consumer-dev
+  resourceVersion: "1755603157790623022"
+  uid: 4e600db6-11af-4202-a902-42fb69ea63d2
+spec:
+  ingressClassName: public
+  rules:
+  - host: tezapi-cd.apnamart.in
+    http:
+      paths:
+      - backend:
+          service:
+            name: tez-api-dev-dev
+            port:
+              number: 8000
+        path: /
+        pathType: Prefix
+  - host: smapi-cd.apnamart.in
+    http:
+      paths:
+      - backend:
+          service:
+            name: samaan-api-dev-dev
+            port:
+              number: 8000
+        path: /
+        pathType: Prefix
+  - host: arrow-cd.apnamart.in
+    http:
+      paths:
+      - backend:
+          service:
+            name: samaan-api-dev-dev
+            port:
+              number: 8000
+        path: /
+        pathType: Prefix
+  - host: offerapi-cd.apnamart.in
+    http:
+      paths:
+      - backend:
+          service:
+            name: offer-api-dev-consumer-dev
+            port:
+              number: 8000
+        path: /
+        pathType: Prefix
+  - host: searchapi-cd.apnamart.in
+    http:
+      paths:
+      - backend:
+          service:
+            name: search-api-dev-dev
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
+  - host: cpapi-cd.apnamart.in
+    http:
+      paths:
+      - backend:
+          service:
+            name: hrms-api-consumer-dev
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
+  - host: dhaara-cd.apnamart.in
+    http:
+      paths:
+      - backend:
+          service:
+            name: dhaara-api-consumer-dev
+            port:
+              number: 8000
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - tezapi-cd.apnamart.in
+    - offerapi-cd.apnamart.in
+    - smapi-cd.apnamart.in
+    - arrow-cd.apnamart.in
+    - searchapi-cd.apnamart.in
+    - cpapi-cd.apnamart.in
+    - dhaara-cd.apnamart.in
+    secretName: apnamart-be-wild
+status:
+  loadBalancer:
+    ingress:
+    - ip: 35.200.231.108
