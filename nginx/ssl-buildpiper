@@ -1,0 +1,71 @@
+ubuntu@dev-uat-bp:/etc/nginx/sites-enabled$ cat default
+####################################################################################################################################
+server {
+        server_name bp.apnamart.in;
+        location / {
+                proxy_set_header X-Forwarded-Host $host;
+                proxy_set_header X-Forwarded-Server $host;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_pass http://127.0.0.1:82/;
+                 }
+
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /home/ubuntu/certs/STAR_apnamart_in.crt; # managed by Certbot
+    ssl_certificate_key /home/ubuntu/certs/wild.key; # managed by Certbot
+#    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+#    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+
+##################################################################################################################################
+
+server {
+        server_name bp-api.apnamart.in;
+ location / {
+       proxy_set_header X-Forwarded-Host $host;
+       proxy_set_header X-Forwarded-Server $host;
+       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       proxy_pass http://127.0.0.1:9001/;
+        }
+
+    listen [::]:443 ssl; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /home/ubuntu/certs/STAR_apnamart_in.crt; # managed by Certbot
+    ssl_certificate_key /home/ubuntu/certs/wild.key; # managed by Certbot
+#    ssl_certificate /etc/letsencrypt/live/bp-api.apnamart.in/fullchain.pem; # managed by Certbot
+#    ssl_certificate_key /etc/letsencrypt/live/bp-api.apnamart.in/privkey.pem; # managed by Certbot
+#    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+#    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+##############################################################################################################################
+
+server {
+    if ($host = bp.apnamart.in) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+        listen 80;
+        listen [::]:80;
+        server_name bp.apnamart.in;
+    return 404; # managed by Certbot
+
+
+}
+
+server {
+    if ($host = bp-api.apnamart.in) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+        listen 80;
+        listen [::]:80;
+        server_name bp-api.apnamart.in;
+    return 404; # managed by Certbot
+
+
+}
