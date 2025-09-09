@@ -102,3 +102,9 @@ status:
   loadBalancer:
     ingress:
     - ip: 35.200.231.108
+
+    ==============
+    aws eks update-kubeconfig \
+  --region ap-south-1 \
+  --name cilium-poc-eks-vpc-cnii \
+  --kubeconfig ./kubeconfig-eks
