@@ -110,3 +110,4 @@ status:
   --kubeconfig ./kubeconfig-eks
 kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-1.29"
 csi driver
+corden
