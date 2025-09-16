@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: salary
+  namespace: otms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: salary
+  template:
+    metadata:
+      labels:
+        app: salary
+    spec:
+      containers:
+        - name: salary
+          image: pritam0517/var-salary:latest
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: salary-svc
+  namespace: otms
+spec:
+  selector:
+    app: salary
+  ports:
+    - port: 8080        # Service port
+      targetPort: 8080  # Container port
+  type: ClusterIP       # Change to NodePort/LoadBalancer if external access is needed

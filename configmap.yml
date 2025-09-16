@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scylla-config
+  namespace: otms
+data:
+  SCYLLA_HOST: scylla-svc.otms.svc.cluster.local
+  # SCYLLA_PORT: "9042"
+  SCYLLA_DB: employee_db
